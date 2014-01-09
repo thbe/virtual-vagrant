@@ -1,0 +1,48 @@
+# -*- mode: ruby -*-
+# vi: set ft=ruby :
+#
+# Vagrant file to launch single instance
+# with puppet run after startup
+#
+# Author: Thomas Bendler <project@bendler-net.de>
+# Date:   So 22. Dez 23:24:27 CET 2013
+#
+
+### Specify the API version that should be used ###
+VAGRANTFILE_API_VERSION = "2"
+
+### Parameter for box settings ###
+box      = 'centos6'
+url      = 'http://puppet-vagrant-boxes.puppetlabs.com/centos-64-x64-vbox4210.box'
+hostname = 'vagrant-centos6-1'
+domain   = 'thbe.local'
+ip       = '192.168.14.11'
+ram      = '1024'
+cpu      = '2'
+group    = '/Vagrant'
+
+### Vagrant configuration for startup the virtual machine ###
+Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
+  config.vm.box = box
+  config.vm.box_url = url
+  config.vm.host_name = hostname + '.' + domain
+  config.vm.network "private_network", ip: ip
+
+  config.vm.provider "virtualbox" do |vb|
+    vb.customize [
+      'modifyvm', :id,
+      '--groups', "/Vagrant",
+      '--cpus', cpu,
+      '--name', hostname,
+      '--memory', ram
+    ]
+  end
+
+  config.vm.provision :puppet do |puppet|
+    puppet.manifests_path = 'puppet/manifests'
+    puppet.manifest_file = 'site.pp'
+    puppet.module_path = 'puppet/modules'
+  end
+
+  config.ssh.forward_agent = true
+end
