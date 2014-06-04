@@ -5,16 +5,16 @@
 # with puppet run after startup
 #
 # Author: Thomas Bendler <project@bendler-net.de>
-# Date:   So 22. Dez 23:24:27 CET 2013
+# Date:   Wed Jun  4 21:53:17 CEST 2014
 #
 
 ### Specify the API version that should be used ###
 VAGRANTFILE_API_VERSION = "2"
 
 ### Parameter for box settings ###
-box      = 'f19'
-url      = 'https://dl.dropboxusercontent.com/u/86066173/fedora-19.box'
-hostname = 'vagrant-f19-1'
+box      = 'f20'
+url      = 'https://dl.dropboxusercontent.com/u/15733306/vagrant/fedora-20-netinst-2014_01_05-minimal-puppet-guestadditions.box'
+hostname = 'vagrant-f20-1'
 domain   = 'thbe.local'
 ip       = '192.168.14.12'
 ram      = '1024'
