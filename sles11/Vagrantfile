@@ -1,6 +1,3 @@
-# -*- mode: ruby -*-
-# vi: set ft=ruby :
-#
 # Vagrant file to launch single instance
 # with puppet run after startup
 #
