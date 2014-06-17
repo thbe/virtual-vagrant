@@ -35,11 +35,11 @@ Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
     ]
   end
 
-  config.vm.provision :puppet do |puppet|
-    puppet.manifests_path = 'puppet/manifests'
-    puppet.manifest_file = 'site.pp'
-    puppet.module_path = 'puppet/modules'
-  end
+#  config.vm.provision :puppet do |puppet|
+#    puppet.manifests_path = 'puppet/manifests'
+#    puppet.manifest_file = 'site.pp'
+#    puppet.module_path = 'puppet/modules'
+#  end
 
   config.ssh.forward_agent = true
   config.ssh.pty = true
