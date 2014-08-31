@@ -9,9 +9,9 @@
 VAGRANTFILE_API_VERSION = "2"
 
 ### Parameter for box settings ###
-box      = 'centos7rc'
-url      = 'http://www.thbe.local/centos7rc-x64-virtualbox-puppet.box'
-hostname = 'vagrant-centos7rc'
+box      = 'centos70'
+url      = 'https://dl.dropboxusercontent.com/s/w3lbekm7eunrskm/centos-7.0-x86_64.box'
+hostname = 'vagrant-centos70-1'
 domain   = 'thbe.local'
 ip       = '192.168.14.14'
 ram      = '1024'
