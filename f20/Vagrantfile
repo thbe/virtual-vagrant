@@ -13,7 +13,7 @@ box      = 'f20'
 url      = 'https://dl.dropboxusercontent.com/u/15733306/vagrant/fedora-20-netinst-2014_01_05-minimal-puppet-guestadditions.box'
 hostname = 'vagrant-f20-1'
 domain   = 'thbe.local'
-ip       = '192.168.14.12'
+ip       = '192.168.14.50'
 ram      = '1024'
 cpu      = '2'
 
