@@ -43,3 +43,6 @@ Icon?
 
 # ZSH Cake plugin cache
 /.cake_task_cache
+
+# Vagrant
+.vagrant
