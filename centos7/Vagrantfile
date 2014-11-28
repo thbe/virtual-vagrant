@@ -1,5 +1,5 @@
 # Vagrant file to launch single instance
-# with puppet run after startup
+# with puppet server installed after startup
 #
 # Author: Thomas Bendler <project@bendler-net.de>
 # Date:   Fr 28 Nov 2014 13:57:04 CET
@@ -12,15 +12,15 @@ VAGRANTFILE_API_VERSION = "2"
 box      = 'jdiprizio/centos-docker-io'
 hostname = 'vagrant-centos7-v1'
 domain   = 'thbe.local'
-ip       = '192.168.14.15'
+ip       = '10.0.2.15'
 ram      = '1024'
 cpu      = '2'
 
 ### Vagrant configuration for startup the virtual machine ###
 Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
   config.vm.box = box
-#  config.vm.host_name = hostname + '.' + domain
-#  config.vm.network "private_network", ip: ip
+  config.vm.host_name = hostname + '.' + domain
+  config.vm.network "private_network", ip: ip
 
   config.vm.provider "virtualbox" do |vb|
     vb.customize [
@@ -32,12 +32,10 @@ Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
     ]
   end
 
-#  config.vm.provision :puppet do |puppet|
-#    puppet.manifests_path = 'puppet/manifests'
-#    puppet.manifest_file = 'site.pp'
-#    puppet.module_path = 'puppet/modules'
-#  end
+  Vagrant.configure("2") do |config|
+    config.vm.provision "shell", path: "/vagrant/script/puppet.sh server"
+  end
 
-#  config.ssh.forward_agent = true
-#  config.ssh.pty = true
+  config.ssh.forward_agent = true
+  config.ssh.pty = true
 end
