@@ -2,7 +2,7 @@
 # with puppet server installed after startup
 #
 # Author: Thomas Bendler <project@bendler-net.de>
-# Date:   Fr 28 Nov 2014 13:57:04 CET
+# Date:   Tue Jan 27 00:39:54 CET 2015
 #
 
 ### Specify the API version that should be used ###
@@ -32,9 +32,8 @@ Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
     ]
   end
 
-  Vagrant.configure("2") do |config|
-    config.vm.provision "shell", path: "/vagrant/script/puppet.sh server"
-  end
+  config.vm.provision "shell",
+  inline: "/bin/sh /vagrant/script/puppet.sh client"
 
   config.ssh.forward_agent = true
   config.ssh.pty = true
