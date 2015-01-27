@@ -7,6 +7,10 @@
 # Date:   Tue Jan 27 00:39:54 CET 2015
 #
 
+# Set proxy if needed
+# export http_proxy="http://proxy.example.com:8080"
+# export https_proxy="http://proxy.example.com:8080"
+
 # Get parameter
 case $1 in
   "client") PUPPETTYPE=C;;
