@@ -10,7 +10,7 @@ VAGRANTFILE_API_VERSION = "2"
 
 ### Parameter for box settings ###
 box      = 'jdiprizio/centos-docker-io'
-hostname = 'vagrant-centos7-v1'
+hostname = 'vagrant-centos7-v2'
 domain   = 'thbe.local'
 ip       = '10.0.2.15'
 ram      = '1024'

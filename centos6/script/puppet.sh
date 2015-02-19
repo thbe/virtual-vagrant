@@ -19,8 +19,8 @@ case $1 in
 esac
 
 # Setup repositories
-sudo rpm -Uvh http://vesta.informatik.rwth-aachen.de/ftp/pub/Linux/fedora-epel/7/x86_64/e/epel-release-7-5.noarch.rpm
-sudo rpm -Uvh http://yum.puppetlabs.com/puppetlabs-release-el-7.noarch.rpm
+sudo rpm -Uvh http://vesta.informatik.rwth-aachen.de/ftp/pub/Linux/fedora-epel/6/x86_64/epel-release-6-8.noarch.rpm
+sudo rpm -Uvh http://yum.puppetlabs.com/puppetlabs-release-el-6.noarch.rpm
 
 # Update system (exclude kernel, otherwise vboxsf gets broken)
 sudo yum clean all

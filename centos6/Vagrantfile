@@ -9,11 +9,10 @@
 VAGRANTFILE_API_VERSION = "2"
 
 ### Parameter for box settings ###
-box      = 'centos65'
-url      = 'http://puppet-vagrant-boxes.puppetlabs.com/centos-65-x64-virtualbox-puppet.box'
-hostname = 'vagrant-centos65-1'
+box      = 'puppetlabs/centos-6.5-64-puppet'
+hostname = 'vagrant-centos65-v2'
 domain   = 'thbe.local'
-ip       = '192.168.14.10'
+ip       = '10.0.2.15'
 ram      = '1024'
 cpu      = '2'
 group    = '/Vagrant'
@@ -21,7 +20,6 @@ group    = '/Vagrant'
 ### Vagrant configuration for startup the virtual machine ###
 Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
   config.vm.box = box
-  config.vm.box_url = url
   config.vm.host_name = hostname + '.' + domain
   config.vm.network "private_network", ip: ip
 
@@ -35,11 +33,9 @@ Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
     ]
   end
 
-  config.vm.provision :puppet do |puppet|
-    puppet.manifests_path = 'puppet/manifests'
-    puppet.manifest_file = 'site.pp'
-    puppet.module_path = 'puppet/modules'
-  end
+  config.vm.provision "shell",
+  inline: "/bin/sh /vagrant/script/puppet.sh client"
 
   config.ssh.forward_agent = true
+  config.ssh.pty = true
 end
