@@ -9,11 +9,11 @@
 VAGRANTFILE_API_VERSION = "2"
 
 ### Parameter for box settings ###
-box      = 'puphpet/centos65-x64'
+box      = 'puppetlabs/centos65-x64'
 hostname = 'vagrant-centos6x-v1'
 domain   = 'thbe.local'
 ip       = '10.0.2.15'
-ram      = '1024'
+ram      = '2048'
 cpu      = '2'
 group    = '/Vagrant'
 

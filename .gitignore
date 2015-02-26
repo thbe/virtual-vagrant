@@ -47,6 +47,10 @@ Icon?
 # Vagrant
 .vagrant/
 
+# Packer
+*.box
+packer_cache
+
 # Kodi
 cache/
 kodi-content.html

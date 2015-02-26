@@ -7,7 +7,6 @@
                 "scripts/virtualbox.sh",
                 "scripts/vmware.sh",
                 "scripts/vagrant.sh",
-                "scripts/puphpet.sh",
                 "scripts/cleanup.sh",
                 "scripts/zerodisk.sh"
             ],
@@ -31,7 +30,7 @@
                 "<tab> text ks=http://{{ .HTTPIP }}:{{ .HTTPPort }}/ks.cfg<enter><wait>"
             ],
             "boot_wait": "10s",
-            "disk_size": 20480,
+            "disk_size": 8192,
             "guest_os_type": "RedHat_64",
             "http_directory": "http",
             "iso_checksum": "e3afe3f1121d69c40cc23f0bafa05e5d",
@@ -46,7 +45,7 @@
             "virtualbox_version_file": ".vbox_version",
             "vboxmanage": [
                 ["modifyvm", "{{.Name}}", "--memory", "2048"],
-                ["modifyvm", "{{.Name}}", "--cpus", "4"]
+                ["modifyvm", "{{.Name}}", "--cpus", "2"]
             ]
         },
         {
@@ -55,7 +54,7 @@
                 "<tab> text ks=http://{{ .HTTPIP }}:{{ .HTTPPort }}/ks.cfg<enter><wait>"
             ],
             "boot_wait": "10s",
-            "disk_size": 20480,
+            "disk_size": 8192,
             "guest_os_type": "rhel6-64",
             "http_directory": "http",
             "iso_checksum": "e3afe3f1121d69c40cc23f0bafa05e5d",
@@ -70,7 +69,7 @@
             "tools_upload_flavor": "linux",
             "vmx_data": {
                 "memsize": "2048",
-                "numvcpus": "4",
+                "numvcpus": "2",
                 "cpuid.coresPerSocket": "1"
             }
         },
@@ -80,7 +79,7 @@
                 "<tab> text ks=http://{{ .HTTPIP }}:{{ .HTTPPort }}/ks.cfg<enter><wait>"
             ],
             "boot_wait": "10s",
-            "disk_size": 20480,
+            "disk_size": 8192,
             "guest_os_type": "centos",
             "http_directory": "http",
             "iso_checksum": "e3afe3f1121d69c40cc23f0bafa05e5d",
@@ -95,7 +94,7 @@
             "parallels_tools_flavor": "lin",
             "prlctl": [
                 ["set", "{{.Name}}", "--memsize", "2048"],
-                ["set", "{{.Name}}", "--cpus", "4"]
+                ["set", "{{.Name}}", "--cpus", "2"]
             ]
         }
     ],
