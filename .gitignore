@@ -45,7 +45,7 @@ Icon?
 /.cake_task_cache
 
 # Vagrant
-.vagrant
+.vagrant/
 
 # Kodi
 cache/

@@ -11,6 +11,9 @@
 # export http_proxy="http://proxy.thbe.local:8080"
 # export https_proxy="http://proxy.thbe.local:8080"
 
+# Set path to ignore wired defaults
+export PATH="/usr/local/bin:/usr/bin:/bin:/usr/sbin:/sbin"
+
 # Get parameter
 case $1 in
   "client") PUPPETTYPE=C;;
