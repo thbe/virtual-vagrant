@@ -46,6 +46,7 @@ Icon?
 
 # Vagrant
 .vagrant/
+local_puppet/
 
 # Packer
 *.box
