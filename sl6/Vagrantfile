@@ -2,7 +2,7 @@
 # with puppet run after startup
 #
 # Author: Thomas Bendler <project@bendler-net.de>
-# Date:   So 22. Dez 23:24:27 CET 2013
+# Date:   Tue Jun  3 14:30:33 CEST 2014
 #
 
 ### Specify the API version that should be used ###
@@ -11,35 +11,32 @@ VAGRANTFILE_API_VERSION = "2"
 ### Parameter for box settings ###
 box      = 'sl6'
 url      = 'http://vagrant.tamu.edu/scientific-64-x64-vb4210.box'
-hostname = 'vagrant-sl6-1'
+hostname = 'vagrant-sl6x-v1'
 domain   = 'thbe.local'
-ip       = '192.168.14.30'
-ram      = '1024'
+ip       = '10.0.2.15'
+ram      = '2048'
 cpu      = '2'
 group    = '/Vagrant'
 
 ### Vagrant configuration for startup the virtual machine ###
 Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
   config.vm.box = box
-  config.vm.box_url = url
   config.vm.host_name = hostname + '.' + domain
   config.vm.network "private_network", ip: ip
 
   config.vm.provider "virtualbox" do |vb|
     vb.customize [
       'modifyvm', :id,
-      '--groups', group,
+      '--groups', "/Vagrant",
       '--cpus', cpu,
       '--name', hostname,
       '--memory', ram
     ]
   end
 
-  config.vm.provision :puppet do |puppet|
-    puppet.manifests_path = 'puppet/manifests'
-    puppet.manifest_file = 'site.pp'
-    puppet.module_path = 'puppet/modules'
-  end
+  config.vm.provision "shell",
+  inline: "/bin/sh /vagrant/script/puppet.sh clean"
 
   config.ssh.forward_agent = true
+  config.ssh.pty = true
 end
