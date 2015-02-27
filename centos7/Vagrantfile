@@ -33,7 +33,7 @@ Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
   end
 
   config.vm.provision "shell",
-  inline: "/bin/sh /vagrant/script/puppet.sh client"
+  inline: "/bin/sh /vagrant/script/puppet.sh clean"
 
   config.ssh.forward_agent = true
   config.ssh.pty = true
