@@ -18,6 +18,7 @@ export PATH="/usr/local/bin:/usr/bin:/bin:/usr/sbin:/sbin"
 case $1 in
   "client") PUPPETTYPE=C;;
   "server") PUPPETTYPE=S;;
+  "clean") PUPPETTYPE=X;;
   *) echo "Wrong parameter, should be client or server"; exit 1;;
 esac
 
@@ -31,6 +32,9 @@ sudo yum -y update --exclude=kernel*
 
 # Install Puppet
 sudo yum -y install puppet
+
+# Exit if clean setup needed
+if [ "x$PUPPETTYPE" = "xX" ]; then exit 0; fi
 
 # Install yum management
 sudo puppet module install thbe-yum
