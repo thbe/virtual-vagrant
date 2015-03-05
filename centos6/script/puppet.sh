@@ -33,12 +33,16 @@ sudo yum -y update --exclude=kernel*
 # Install Puppet
 sudo yum -y install puppet
 
-# Exit if clean setup needed
-if [ "x$PUPPETTYPE" = "xX" ]; then exit 0; fi
-
 # Install yum management
 sudo puppet module install thbe-yum
 sudo puppet apply -e 'class { "yum": }'
+
+# Install personal style
+sudo puppet module install thbe-style
+sudo puppet apply -e 'class { "style": }'
+
+# Exit if clean setup needed
+if [ "x$PUPPETTYPE" = "xX" ]; then exit 0; fi
 
 if [ "x$PUPPETTYPE" = "xS" ]; then
   # Install Puppet server
@@ -64,7 +68,3 @@ if [ "x$PUPPETTYPE" = "xS" ]; then
 else
   echo "Install Mcollective client"
 fi
-
-# Install personal style
-sudo puppet module install thbe-style
-sudo puppet apply -e 'class { "style": }'
