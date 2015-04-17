@@ -9,9 +9,9 @@
 VAGRANTFILE_API_VERSION = "2"
 
 ### Parameter for box settings ###
-box      = 'sles11'
-url      = 'http://www.benden.us/vagrant/sles11sp3.box'
-hostname = 'vagrant-sles11-v1'
+box      = 'solaris11'
+url      = 'http://www.benden.us/vagrant/solaris-11.2.box'
+hostname = 'vagrant-solaris11-v1'
 domain   = 'thbe.local'
 ip       = '10.0.2.15'
 ram      = '2048'
