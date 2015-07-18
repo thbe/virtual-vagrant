@@ -9,11 +9,11 @@
 VAGRANTFILE_API_VERSION = "2"
 
 ### Parameter for box settings ###
-box      = 'jdiprizio/centos-docker-io'
-hostname = 'vagrant-centos7-v2'
+box      = 'thbe-centos7x'
+hostname = 'vagrant-centos7-v3'
 domain   = 'thbe.local'
 ip       = '10.0.2.15'
-ram      = '1024'
+ram      = '2048'
 cpu      = '2'
 
 ### Vagrant configuration for startup the virtual machine ###
@@ -21,8 +21,11 @@ Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
   config.vm.box = box
   config.vm.host_name = hostname + '.' + domain
   config.vm.network "private_network", ip: ip
+  config.vm.network "forwarded_port", guest: 80, host: 8080, auto_correct: true
+  config.vm.network "forwarded_port", guest: 443, host: 8443, auto_correct: true
 
   config.vm.provider "virtualbox" do |vb|
+    override.vm.box = "puppetlabs/centos-7.0-64-nocm"
     vb.customize [
       'modifyvm', :id,
       '--groups', "/Vagrant",
@@ -32,9 +35,17 @@ Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
     ]
   end
 
-  config.vm.provision "shell",
-  inline: "/bin/sh /vagrant/script/puppet.sh clean"
+  config.vm.provider :parallels do |p, override|
+    override.vm.box = "parallels/centos-7.1"
+    p.name = "CentOS 7x Vagrant"
+    p.update_guest_tools = false
+    p.optimize_power_consumption = false
+    p.memory = ram
+    p.cpus = cpu
+  end
 
   config.ssh.forward_agent = true
   config.ssh.pty = true
+
+  config.vm.provision "shell", inline: "/bin/sh /vagrant/script/puppet.sh clean"
 end

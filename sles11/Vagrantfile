@@ -21,6 +21,7 @@ group    = '/Vagrant'
 ### Vagrant configuration for startup the virtual machine ###
 Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
   config.vm.box = box
+  config.vm.box_url = url
   config.vm.host_name = hostname + '.' + domain
   config.vm.network "private_network", ip: ip
 

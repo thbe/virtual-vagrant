@@ -10,7 +10,7 @@ VAGRANTFILE_API_VERSION = "2"
 
 ### Parameter for box settings ###
 box      = 'thbe-centos6x'
-hostname = 'vagrant-centos6x-v1'
+hostname = 'vagrant-centos6x-v2'
 domain   = 'thbe.local'
 ip       = '10.0.2.15'
 ram      = '2048'
@@ -26,7 +26,7 @@ Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
   config.vm.network "forwarded_port", guest: 80, host: 8080, auto_correct: true
 
   config.vm.provider :virtualbox do |v, override|
-    override.vm.box = "puppetlabs/centos-6.5-64-puppet"
+    override.vm.box = "puppetlabs/centos-6.6-64-puppet"
     v.customize [
       'modifyvm', :id,
       '--groups', "/Vagrant",
@@ -37,7 +37,7 @@ Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
   end
 
   config.vm.provider :parallels do |p, override|
-    override.vm.box = "parallels/centos-6.5"
+    override.vm.box = "parallels/centos-6.6"
     p.name = "CentOS 6x Vagrant"
     p.update_guest_tools = false
     p.optimize_power_consumption = false
