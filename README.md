@@ -39,6 +39,28 @@ beside virtual box.
 This example shows how to start a Vagrant box (i.e. centos6 for parallels):
 
 ```shell
+cd virtual-vagrant/centos-7/
+vagrant up --provider parallels
+```
+
+
+##Usage
+
+To start a vagrant box you need to choose which one you want to start and what virtualization software
+you are using. Assuming you want to start CentOS 7 on Parallels, the command will be:
+
+```shell
+cd virtual-vagrant/centos-7/
+vagrant up --provider parallels
+```
+
+##Reference
+
+###Create your own base box
+
+This example shows howto create your own base box (CentOS 6 for Paralllels) using packer:
+
+```shell
 cd virtual-vagrant/packer/centos-6-x86_64/
 packer build -only=parallels-iso template.json
 cd ../../centos6/
@@ -46,19 +68,11 @@ vagrant box add thbe-centos6x file:///../packer/centos-6-x86_64/packer_parallels
 vagrant up
 ```
 
-##Usage
-
-t.b.d.
-
-
-##Reference
-
-t.b.d.
-
 
 ##Limitations
 
 t.b.d.
+
 
 ##Development
 

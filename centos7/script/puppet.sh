@@ -24,47 +24,47 @@ esac
 
 # Setup repositories
 sudo rpm -Uvh http://vesta.informatik.rwth-aachen.de/ftp/pub/Linux/fedora-epel/7/x86_64/e/epel-release-7-5.noarch.rpm
-sudo rpm -Uvh http://yum.puppetlabs.com/puppetlabs-release-el-7.noarch.rpm
+sudo rpm -Uvh https://yum.puppetlabs.com/puppetlabs-release-pc1-el-7.noarch.rpm
 
-# Update system (exclude kernel, otherwise vboxsf gets broken)
+# Update system (exclude kernel, otherwise virtual optimization gets broken)
 sudo yum clean all
 sudo yum -y update --exclude=kernel*
 
-# Install Puppet
-sudo yum -y install puppet
+# Install Puppet agent all in one package (4.x or newer)
+sudo yum -y install puppet-agent
+
+# Install personal style
+sudo /opt/puppetlabs/bin/puppet module install thbe-style
+sudo /opt/puppetlabs/bin/puppet apply -e 'class { "style": }'
 
 # Exit if clean setup needed
 if [ "x$PUPPETTYPE" = "xX" ]; then exit 0; fi
 
 # Install yum management
-sudo puppet module install thbe-yum
-sudo puppet apply -e 'class { "yum": }'
+sudo /opt/puppetlabs/bin/puppet module install thbe-yum
+sudo /opt/puppetlabs/bin/puppet apply -e 'class { "yum": }'
 
 if [ "x$PUPPETTYPE" = "xS" ]; then
   # Install Puppet server
   sudo yum -y install puppetserver
 
   # Install Puppet DB
-  sudo puppet module install puppetlabs-puppetdb
-  sudo puppet apply -e 'class { "puppetdb": }'
-  sudo puppet apply -e 'class { "puppetdb::master::config": puppetdb_server => "puppet.thbe.local" }'
-  #sudo puppet resource package puppetdb ensure=latest
-  #sudo puppet resource service puppetdb ensure=running enable=true
+  sudo /opt/puppetlabs/bin/puppet module install puppetlabs-puppetdb
+  sudo /opt/puppetlabs/bin/puppet apply -e 'class { "puppetdb": }'
+  sudo /opt/puppetlabs/bin/puppet apply -e 'class { "puppetdb::master::config": puppetdb_server => "puppet.thbe.local" }'
+  #sudo /opt/puppetlabs/bin/puppet resource package puppetdb ensure=latest
+  #sudo /opt/puppetlabs/bin/puppet resource service puppetdb ensure=running enable=true
 
   # Install Puppet Dashboard
-  sudo puppet module install puppetlabs-mysql
-  sudo puppet module install puppetlabs-dashboard
+  sudo /opt/puppetlabs/bin/puppet module install puppetlabs-mysql
+  sudo /opt/puppetlabs/bin/puppet module install puppetlabs-dashboard
   sudo yum -y install puppet-dashboard
 fi
 
 # Install Mcollective
-sudo puppet module install puppetlabs-mcollective
+sudo /opt/puppetlabs/bin/puppet module install puppetlabs-mcollective
 if [ "x$PUPPETTYPE" = "xS" ]; then
   echo "Install Mcollective server"
 else
   echo "Install Mcollective client"
 fi
-
-# Install personal style
-sudo puppet module install thbe-style
-sudo puppet apply -e 'class { "style": }'

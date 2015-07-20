@@ -24,7 +24,7 @@ Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
   config.vm.network "forwarded_port", guest: 80, host: 8080, auto_correct: true
   config.vm.network "forwarded_port", guest: 443, host: 8443, auto_correct: true
 
-  config.vm.provider "virtualbox" do |vb|
+  config.vm.provider "virtualbox" do |vb, override|
     override.vm.box = "puppetlabs/centos-7.0-64-nocm"
     vb.customize [
       'modifyvm', :id,
@@ -35,7 +35,7 @@ Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
     ]
   end
 
-  config.vm.provider :parallels do |p, override|
+  config.vm.provider "parallels" do |p, override|
     override.vm.box = "parallels/centos-7.1"
     p.name = "CentOS 7x Vagrant"
     p.update_guest_tools = false
