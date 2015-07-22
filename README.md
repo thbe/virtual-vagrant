@@ -56,6 +56,12 @@ vagrant up --provider parallels
 
 ##Reference
 
+###Sizing virtual machines
+
+The sizing of the virtual machines is based on my local test scenarios. So all machines are equipped with
+two processors and 4GB RAM. It make sense to reduce or increase the values based on the local hardware that
+is used for the Vagrant machines.
+
 ###Create your own base box
 
 This example shows howto create your own base box (CentOS 6 for Paralllels) using packer:

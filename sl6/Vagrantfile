@@ -9,14 +9,12 @@
 VAGRANTFILE_API_VERSION = "2"
 
 ### Parameter for box settings ###
-box      = 'sl6'
-url      = 'http://vagrant.tamu.edu/scientific-64-x64-vb4210.box'
+box      = 'thbe-sl6x'
 hostname = 'vagrant-sl6x-v1'
 domain   = 'thbe.local'
 ip       = '10.0.2.15'
-ram      = '2048'
+ram      = '4096'
 cpu      = '2'
-group    = '/Vagrant'
 
 ### Vagrant configuration for startup the virtual machine ###
 Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
@@ -24,7 +22,8 @@ Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
   config.vm.host_name = hostname + '.' + domain
   config.vm.network "private_network", ip: ip
 
-  config.vm.provider "virtualbox" do |vb|
+  config.vm.provider "virtualbox" do |vb, override|
+    override.vm.url = 'http://vagrant.tamu.edu/scientific-64-x64-vb4210.box'
     vb.customize [
       'modifyvm', :id,
       '--groups', "/Vagrant",

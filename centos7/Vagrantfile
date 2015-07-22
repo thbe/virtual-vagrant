@@ -10,10 +10,10 @@ VAGRANTFILE_API_VERSION = "2"
 
 ### Parameter for box settings ###
 box      = 'thbe-centos7x'
-hostname = 'vagrant-centos7-v3'
+hostname = 'vagrant-centos7x-v3'
 domain   = 'thbe.local'
 ip       = '10.0.2.15'
-ram      = '2048'
+ram      = '4096'
 cpu      = '2'
 
 ### Vagrant configuration for startup the virtual machine ###
