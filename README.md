@@ -54,6 +54,7 @@ cd virtual-vagrant/centos-7/
 vagrant up --provider parallels
 ```
 
+
 ##Reference
 
 ###Sizing virtual machines
