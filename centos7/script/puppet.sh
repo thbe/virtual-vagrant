@@ -68,3 +68,8 @@ if [ "x$PUPPETTYPE" = "xS" ]; then
 else
   echo "Install Mcollective client"
 fi
+
+# Check if local puppet modules exist and install them
+for item in $(ls -1 local_module/*.gz); do
+  puppet module install /vagrant/$item
+done
