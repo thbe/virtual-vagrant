@@ -12,7 +12,7 @@ VAGRANTFILE_API_VERSION = '2'
 box      = 'thbe-centos7x'
 hostname = 'vagrant-centos7x-v3'
 domain   = 'thbe.local'
-ip       = '10.0.2.15'
+ip       = '192.168.14.10'
 ram      = '4096'
 cpu      = '2'
 
@@ -24,8 +24,10 @@ Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
   config.vm.network 'forwarded_port', guest: 80, host: 8080, auto_correct: true
   config.vm.network 'forwarded_port', guest: 443, host: 8443, auto_correct: true
 
+  # Create virtualbox vm if virtualbox provider is selected
   config.vm.provider 'virtualbox' do |vb, override|
     override.vm.box = 'puppetlabs/centos-7.0-64-nocm'
+    # vb.gui = true
     vb.customize [
       'modifyvm', :id,
       '--groups', '/Vagrant',
@@ -34,7 +36,7 @@ Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
       '--memory', ram
     ]
 
-    #Script to add a new disk
+    # Script to add a new disk
     file_to_disk = './tmp/VirtualStorageDisk1.vmdk'
     if ARGV[0] == "up" && ! File.exist?(file_to_disk)
       vb.customize [
@@ -55,6 +57,7 @@ Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
     end
   end
 
+  # Create parallels vm if parallels provider is selected
   config.vm.provider 'parallels' do |p, override|
     override.vm.box = 'parallels/centos-7.1'
     p.name = 'CentOS 7x Vagrant'
