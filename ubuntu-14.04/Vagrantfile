@@ -1,0 +1,63 @@
+# Vagrant file to launch single instance
+#
+# Author: Thomas Bendler <project@bendler-net.de>
+# Date:   Mon Sep 28 18:43:53 CEST 2015
+#
+
+### Specify the API version that should be used ###
+VAGRANTFILE_API_VERSION = '2'
+
+### Parameter for box settings ###
+box      = 'thbe-ubuntu-14.04'
+hostname = 'vagrant-ubuntu14.04-v1'
+domain   = 'thbe.local'
+ip       = '192.168.14.90'
+ram      = '4096'
+cpu      = '2'
+
+### Vagrant configuration for startup the virtual machine ###
+Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
+  config.vm.box = box
+  config.vm.host_name = hostname + '.' + domain
+  config.vm.network 'private_network', ip: ip
+  config.vm.network 'forwarded_port', guest: 80, host: 8080, auto_correct: true
+  config.vm.network 'forwarded_port', guest: 443, host: 8443, auto_correct: true
+
+  # Create virtualbox vm if virtualbox provider is selected
+  config.vm.provider 'virtualbox' do |vb, override|
+    override.vm.box = 'ubuntu/trusty64'
+    # vb.gui = true
+    vb.customize [
+      'modifyvm', :id,
+      '--groups', '/Vagrant',
+      '--cpus', cpu,
+      '--name', hostname,
+      '--memory', ram
+    ]
+
+    # Script to add a new disk
+    file_to_disk = './tmp/VirtualStorageDisk1.vmdk'
+    if ARGV[0] == "up" && ! File.exist?(file_to_disk)
+      vb.customize [
+        'createmedium', 'disk',
+        '--filename', file_to_disk,
+        '--size', 1024,
+        '--format', 'VMDK',
+        '--variant', 'Standard'
+      ]
+      vb.customize [
+        'storageattach', :id,
+        '--storagectl', 'IDE Controller',
+        '--port', 1,
+        '--device', 0,
+        '--type', 'hdd',
+        '--medium', file_to_disk
+      ]
+    end
+  end
+
+  config.ssh.forward_agent = true
+  config.ssh.pty = true
+
+  config.vm.provision 'shell', inline: '/bin/sh /vagrant/script/puppet.sh clean'
+end
