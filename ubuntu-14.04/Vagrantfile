@@ -72,9 +72,9 @@ Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
   echo Pass proxy definition in sudo
   echo 'Defaults env_keep += "ftp_proxy http_proxy https_proxy no_proxy"' >> /etc/sudoers.d/10_vagrant
   echo Create vagrant profile.d script
-  echo # vagrant profile script > /etc/profile.d/99_vagrant.sh
-  echo # export http_proxy=http://proxy.thbe.local:8080 >> /etc/profile.d/99_vagrant.sh
-  echo # export https_proxy=http://proxy.thbe.local:8080 >> /etc/profile.d/99_vagrant.sh
+  echo "# vagrant profile script" > /etc/profile.d/99_vagrant.sh
+  echo "# export http_proxy=http://proxy.thbe.local:8080" >> /etc/profile.d/99_vagrant.sh
+  echo "# export https_proxy=http://proxy.thbe.local:8080" >> /etc/profile.d/99_vagrant.sh
   chmod +x /etc/profile.d/99_vagrant.sh
 SCRIPT
   $main_script = '/vagrant/script/puppet.sh clean > /tmp/vagrant-provision.log 2>&1'
