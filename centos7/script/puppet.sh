@@ -7,10 +7,6 @@
 # Date:   Tue Jan 27 00:39:54 CET 2015
 #
 
-# Set proxy if needed
-# export http_proxy="http://proxy.thbe.local:8080"
-# export https_proxy="http://proxy.thbe.local:8080"
-
 # Set path to ignore wired defaults
 export PATH="/usr/local/bin:/usr/bin:/bin:/usr/sbin:/sbin"
 
@@ -71,5 +67,6 @@ fi
 
 # Check if local puppet modules exist and install them
 for item in $(ls -1 local_module/*.gz); do
+  [[ -e $item ]] || break  # handle the case of no *.gz files
   puppet module install /vagrant/$item
 done
