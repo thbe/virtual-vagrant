@@ -66,7 +66,7 @@ else
 fi
 
 # Check if local puppet modules exist and install them
-for item in $(ls -1 local_module/*.gz); do
+for item in $(ls -1 local/puppet/*.gz); do
   [[ -e $item ]] || break  # handle the case of no *.gz files
   puppet module install /vagrant/$item
 done

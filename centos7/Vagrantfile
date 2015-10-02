@@ -37,8 +37,9 @@ Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
     ]
 
     # Script to add a new disk
-    file_to_disk = './tmp/VirtualStorageDisk1.vmdk'
-    if ARGV[0] == "up" && ! File.exist?(file_to_disk)
+    second_disk = 'no'
+    file_to_disk = './local/storage/VirtualStorageDisk1.vmdk'
+    if ARGV[0] == 'up' && second_disk == 'yes' && ! File.exist?(file_to_disk)
       vb.customize [
         'createmedium', 'disk',
         '--filename', file_to_disk,
