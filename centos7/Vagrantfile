@@ -2,14 +2,14 @@
 # with puppet server installed after startup
 #
 # Author: Thomas Bendler <project@bendler-net.de>
-# Date:   Tue Jan 27 00:39:54 CET 2015
+# Date:   Mon May 23 17:49:10 CEST 2016
 #
 
 ### Specify the API version that should be used ###
 VAGRANTFILE_API_VERSION = '2'
 
 ### Parameter for box settings ###
-box      = 'thbe-centos7x'
+box      = 'centos/7'
 hostname = 'vagrant-centos7x-v3'
 domain   = 'thbe.local'
 ip       = '192.168.14.10'
@@ -23,10 +23,10 @@ Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
   config.vm.network 'private_network', ip: ip
   config.vm.network 'forwarded_port', guest: 80, host: 8080, auto_correct: true
   config.vm.network 'forwarded_port', guest: 443, host: 8443, auto_correct: true
+  config.vm.network 'forwarded_port', guest: 8443, host: 18443, auto_correct: true
 
   # Create virtualbox vm if virtualbox provider is selected
   config.vm.provider 'virtualbox' do |vb, override|
-    override.vm.box = 'puppetlabs/centos-7.0-64-nocm'
     # vb.gui = true
     vb.customize [
       'modifyvm', :id,
@@ -58,16 +58,8 @@ Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
     end
   end
 
-  # Create parallels vm if parallels provider is selected
-  config.vm.provider 'parallels' do |p, override|
-    override.vm.box = 'parallels/centos-7.1'
-    p.name = 'CentOS 7x Vagrant'
-    p.update_guest_tools = false
-    p.optimize_power_consumption = false
-    p.memory = ram
-    p.cpus = cpu
-  end
-
+  # Setup ssh connection
+  config.ssh.forward_x11 = true
   config.ssh.forward_agent = true
   config.ssh.pty = true
 
@@ -86,7 +78,7 @@ Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
   echo "# export https_proxy=http://proxy.thbe.local:8080" >> /etc/profile.d/99_vagrant.sh
   chmod +x /etc/profile.d/99_vagrant.sh
 SCRIPT
-  $main_script = '/vagrant/script/puppet.sh clean > /tmp/vagrant-provision.log 2>&1'
+  $main_script = '/home/vagrant/sync/script/puppet.sh clean > /tmp/vagrant-provision.log 2>&1'
 
   config.vm.provision 'shell', inline: $before_script
   config.vm.provision 'shell', inline: $main_script

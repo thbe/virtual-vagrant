@@ -19,7 +19,7 @@ case $1 in
 esac
 
 # Setup repositories
-sudo rpm -Uvh http://vesta.informatik.rwth-aachen.de/ftp/pub/Linux/fedora-epel/7/x86_64/e/epel-release-7-5.noarch.rpm
+sudo rpm -Uvh https://dl.fedoraproject.org/pub/epel/epel-release-latest-7.noarch.rpm
 sudo rpm -Uvh https://yum.puppetlabs.com/puppetlabs-release-pc1-el-7.noarch.rpm
 
 # Update system (exclude kernel, otherwise virtual optimization gets broken)
@@ -66,7 +66,8 @@ else
 fi
 
 # Check if local puppet modules exist and install them
-for item in $(ls -1 local/puppet/*.gz); do
-  [[ -e $item ]] || break  # handle the case of no *.gz files
-  puppet module install /vagrant/$item
+for item in local/puppet/*.gz; do
+  if [ -r $item ]; then
+    puppet module install /vagrant/$item
+  fi
 done
