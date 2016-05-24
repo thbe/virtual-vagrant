@@ -27,7 +27,6 @@ Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
 
   # Create virtualbox vm if virtualbox provider is selected
   config.vm.provider 'virtualbox' do |vb, override|
-    # vb.gui = true
     vb.customize [
       'modifyvm', :id,
       '--groups', '/Vagrant',

@@ -4,7 +4,7 @@
 # puppet server based on the script parameter
 #
 # Author: Thomas Bendler <project@bendler-net.de>
-# Date:   Tue Jan 27 00:39:54 CET 2015
+# Date:   Tue May 24 13:42:17 CEST 2016
 #
 
 # Set path to ignore wired defaults
@@ -66,8 +66,8 @@ else
 fi
 
 # Check if local puppet modules exist and install them
-for item in local/puppet/*.gz; do
+for item in /home/vagrant/sync/puppet/*.gz; do
   if [ -r $item ]; then
-    puppet module install /vagrant/$item
+    puppet module install $item
   fi
 done
